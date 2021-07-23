@@ -1,3 +1,5 @@
+import KonanResult from "./KonanResult";
+
 interface KonanParam {
     libraries: []
     exports: { [name: string]: () => any }
@@ -30,11 +32,10 @@ class Konan {
         resolve()
     }
 
-    async execute<T>(name: string): Promise<string> {
+    async execute<T>(name: string): Promise<KonanResult> {
         await this.loadingPromise
-        const a = this.konan.exports[name]();
-        return a
-        // return toString(a)
+        let value = this.konan.exports[name]();
+        return new KonanResult(value)
     }
 }
 
