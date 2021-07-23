@@ -1,4 +1,4 @@
-import KonanResult from "./KonanResult";
+import KonanOutput from "./model/KonanOutput";
 
 interface KonanParam {
     libraries: []
@@ -8,12 +8,10 @@ interface KonanParam {
 class Konan {
     loadingId: any
     loadingPromise: Promise<void>
-    konan: KonanParam = {
-        libraries: [],
-        exports: {}
-    }
+    konan: KonanParam
 
     constructor() {
+        this.konan = { libraries: [], exports: {} }
         this.loadingPromise = new Promise(resolve => {
             this.loadingId = setInterval(() => this.load(resolve), 10)
         })
@@ -32,10 +30,10 @@ class Konan {
         resolve()
     }
 
-    async execute<T>(name: string): Promise<KonanResult> {
+    async execute<T>(name: string): Promise<KonanOutput> {
         await this.loadingPromise
         let value = this.konan.exports[name]();
-        return new KonanResult(value)
+        return new KonanOutput(value)
     }
 }
 

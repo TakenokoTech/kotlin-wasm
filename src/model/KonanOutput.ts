@@ -1,7 +1,7 @@
 /**
  * ref: github.com/boyanio/wasm-wheel/blob/master/src/langs/kotlin/format-wasm-loader.js
  */
-export default class KonanResult {
+export default class KonanOutput {
     private value: number
 
     constructor(value: number) {
