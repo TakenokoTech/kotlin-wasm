@@ -7,12 +7,12 @@ window.onload = function () {
 };
 
 (async function () {
-    Konan.setArgs("abc", "defg")
-    const text1 = await Konan.execute("#talkString")
+    // Konan.setArgs("abc", "defg")
+    const text1 = await Konan.execute("#talkString", "abc", "defg")
     console.log("talk: " + text1.toString());
 
-    Konan.setArgs(111)
-    const text2 = await Konan.execute("#talkNum")
+    // Konan.setArgs(111)
+    const text2 = await Konan.execute("#talkNum", 111)
     console.log("talk: " + text2.toString());
 
     ["a", "b", "c", "ab"].forEach((it) => {
@@ -40,6 +40,7 @@ window.onload = function () {
     });
 })();
 
+/*
 Konan.execute("#hello").then(() => {
     const startTime1 = performance.now();
     for (let step = 0; step < 100; step++) Konan.execute("#talkString").then((text) => {});
@@ -53,3 +54,4 @@ Konan.execute("#hello").then(() => {
     for (let step = 0; step < 100; step++) "aaaa" + "bbbb"
     // console.log(performance.now() - startTime3);
 });
+*/
