@@ -8,7 +8,7 @@ declare global {
 
 String.prototype.charMap = function<T>(block: (arg: number) => T): T[] {
     const list = []
-    for (let i = 0; i < length; i++) {
+    for (let i = 0; i < this.length; i++) {
         list.push(block(this.charCodeAt(i)))
     }
     return list

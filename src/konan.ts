@@ -9,6 +9,7 @@ class Konan {
     loadingId: any
     loadingPromise: Promise<void>
     konan: KonanParam
+    _args: { [name: number]: number[] } = {}
 
     constructor() {
         this.konan = { libraries: [], exports: {} }
@@ -26,14 +27,32 @@ class Konan {
             }
         }
         if(this.loadingId) clearTimeout(this.loadingId)
-        console.log(`loaded.`, this.konan.exports)
+        // console.log(`loaded.`, this.konan.exports)
         resolve()
     }
 
-    async execute<T>(name: string): Promise<KonanOutput> {
+    async execute<T>(name: string, ...args: any[]): Promise<KonanOutput> {
         await this.loadingPromise
         let value = this.konan.exports[name]();
         return new KonanOutput(value)
+    }
+
+    setArgs(...args: any[]) {
+        this._args = {}
+        for (const [index, arg] of args.entries()) {
+            switch(typeof(arg)) {
+                case "number":
+                    this._args[index] = [arg]
+                    break
+                case "string":
+                    this._args[index] = arg.charMap(n => n)
+                    break
+            }
+        }
+    }
+
+    getArgs(arg: number) {
+        return this._args[arg]
     }
 }
 

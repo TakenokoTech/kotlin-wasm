@@ -17,5 +17,9 @@ export default class KonanOutput {
         return toUTF16String(this.value + 8, size * 2);
     }
 
+    toBoolean() {
+        return this.value == 1
+    }
+
     private getInt = (offset: number) => heap[offset] | heap[offset + 1] << 8 | heap[offset + 2] << 16 | heap[offset + 3] << 24;
 }

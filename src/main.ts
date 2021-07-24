@@ -2,36 +2,54 @@ import "babel-polyfill";
 import Konan from "./Konan";
 import "./model/KonanInput"
 
-window.onload = function() {
+window.onload = function () {
     console.log("onload")
-}
+};
 
-Konan.execute("#talk").then((text) => {
-    console.log("talk: " + text.toString())
-});
+(async function () {
+    Konan.setArgs("abc", "defg")
+    const text1 = await Konan.execute("#talkString")
+    console.log("talk: " + text1.toString());
 
-["a", "b", "c", "ab"].forEach((it) => {
-    Konan.execute(`#${it}`).then((text) => {
-        console.log(`${it}: ${text.toString()}`);
-    })
-});
+    Konan.setArgs(111)
+    const text2 = await Konan.execute("#talkNum")
+    console.log("talk: " + text2.toString());
 
-["one", "two"].forEach((it) => {
-    Konan.execute(`#${it}`).then((text) => {
-        console.log(`${it}: ${text.toInt()}`);
-    })
-})
+    ["a", "b", "c", "ab"].forEach((it) => {
+        Konan.execute(`#${it}`).then((text) => {
+            console.log(`${it}: ${text.toString()}`);
+        })
+    });
+
+    ["one", "two"].forEach((it) => {
+        Konan.execute(`#${it}`).then((text) => {
+            console.log(`${it}: ${text.toInt()}`);
+        })
+    });
+
+    ["boolTrue", "boolFalse"].forEach((it) => {
+        Konan.execute(`#${it}`).then((text) => {
+            console.log(`${it}: ${text.toBoolean()}`);
+        })
+    });
+
+    ["floatNum", "longNum"].forEach((it) => {
+        Konan.execute(`#${it}`).then((text) => {
+            console.log(`${it}: ${text.toInt()}`);
+        })
+    });
+})();
 
 Konan.execute("#hello").then(() => {
     const startTime1 = performance.now();
-    for (let step = 0; step < 100; step++) Konan.execute("#talk").then((text) => {});
-    console.log(performance.now() - startTime1);
+    for (let step = 0; step < 100; step++) Konan.execute("#talkString").then((text) => {});
+    // console.log(performance.now() - startTime1);
 
     const startTime2 = performance.now();
     for (let step = 0; step < 100; step++) Konan.execute("#a").then((text) => {});
-    console.log(performance.now() - startTime2);
+    // console.log(performance.now() - startTime2);
 
     const startTime3 = performance.now();
     for (let step = 0; step < 100; step++) "aaaa" + "bbbb"
-    console.log(performance.now() - startTime3);
-})
+    // console.log(performance.now() - startTime3);
+});
