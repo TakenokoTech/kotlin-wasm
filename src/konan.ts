@@ -50,13 +50,11 @@ class Konan {
 
     async execute<T>(name: string, ...args: any[]): Promise<KonanOutput> {
         await this.loadingPromise
-        return this.queue.add(() => {
-            return new Promise<KonanOutput>((resolve) => {
-                this.setArgs(...args)
-                let value = this.konan.exports[name]();
-                resolve(new KonanOutput(value))
-            });
-        })
+        return this.queue.add(() => new Promise<KonanOutput>((resolve) => {
+            this.setArgs(...args)
+            const value = this.konan.exports[name]();
+            resolve(new KonanOutput(value))
+        }))
     }
 
     getArgs(arg: number) {

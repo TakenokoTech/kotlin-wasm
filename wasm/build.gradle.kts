@@ -7,6 +7,7 @@ version = "1.0-SNAPSHOT"
 val staticDir = file("./build/libs")
 
 repositories {
+    google()
     mavenCentral()
 }
 
@@ -17,5 +18,13 @@ kotlin {
         }
     }
     sourceSets {
+        val commonMain by getting {
+            dependencies {
+            }
+        }
+        val wasm32Main by getting {
+            dependencies {
+            }
+        }
     }
 }

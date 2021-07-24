@@ -40,7 +40,6 @@ window.onload = function () {
     });
 })();
 
-/*
 Konan.execute("#hello").then(() => {
     const startTime1 = performance.now();
     for (let step = 0; step < 100; step++) Konan.execute("#talkString").then((text) => {});
@@ -54,4 +53,3 @@ Konan.execute("#hello").then(() => {
     for (let step = 0; step < 100; step++) "aaaa" + "bbbb"
     // console.log(performance.now() - startTime3);
 });
-*/
